@@ -51,13 +51,19 @@ INSTALLED_APPS = [
 ]
 
 
-# CORS: allow frontend (e.g. Vite on port 5173) to call the API
+# CORS: allow frontend (Vercel deployment) to call the API
 CORS_ALLOWED_ORIGINS = [
     'https://online-wallet-system-l343.vercel.app',
+    'https://online-wallet-system.vercel.app',  # Generic Vercel domain
+    'http://localhost:5173',  # Local development
+    'http://localhost:3000',  # Alternative local port
 ]
- 
+
 CSRF_TRUSTED_ORIGINS = [
     'https://online-wallet-system-l343.vercel.app',
+    'https://online-wallet-system.vercel.app',  # Generic Vercel domain
+    'http://localhost:5173',  # Local development
+    'http://localhost:3000',  # Alternative local port
 ]
 
 CORS_ALLOW_CREDENTIALS = True
