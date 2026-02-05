@@ -54,13 +54,13 @@ INSTALLED_APPS = [
 # CORS: allow frontend (e.g. Vite on port 5173) to call the API
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
-    'http://127.0.0.1:5173',
+    'https://online-wallet-system.vercel.app',
 ]
 
 # CSRF: allow same origins so login/dashboard POST from frontend succeed
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:5173',
-    'http://127.0.0.1:5173',
+    'https://online-wallet-system.vercel.app',
 ]
 
 MIDDLEWARE = [
