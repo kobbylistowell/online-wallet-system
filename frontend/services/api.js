@@ -6,49 +6,23 @@
 export const API_BASE =
   (import.meta.env.VITE_API_URL?.replace(/\/$/, '') || '') + "/api";
 
-
-function getCsrfToken() {
-  return localStorage.getItem("csrfToken") || "";
-}
-/**
- * Utility to handle fetch API errors more transparently.
- * This improves error reporting, especially for network issues or non-JSON responses.
- */
-export async function safeApiRequest(path, options = {}) {
+// All fetch requests must use credentials
+export async function apiRequest(path, options = {}) {
   const url = path.startsWith("http") ? path : `${API_BASE}${path}`;
   const headers = {
     "Content-Type": "application/json",
     ...options.headers,
   };
-  const csrf = getCsrfToken();
+  const csrf = localStorage.getItem("csrfToken");
   if (csrf) headers["X-CSRFToken"] = csrf;
 
-  try {
-    const res = await fetch(url, {
-      ...options,
-      credentials: "include",
-      headers,
-    });
-
-    let data;
-    const contentType = res.headers.get("content-type");
-    if (contentType && contentType.includes("application/json")) {
-      data = await res.json();
-    } else {
-      data = await res.text();
-    }
-
-    return { ok: res.ok, status: res.status, data };
-  } catch (error) {
-    // Here we return a network error explicitly
-    return {
-      ok: false,
-      status: 0,
-      data: {},
-      error: "Network error: " + (error.message || error.toString()),
-    };
-  }
+  return fetch(url, {
+    ...options,
+    credentials: "include", // ⚠️ Must include this
+    headers,
+  }).then(res => res.json().catch(() => ({})));
 }
+
 
 // Optionally, use this safeApiRequest in your login form and catch error.message to show to user
 
