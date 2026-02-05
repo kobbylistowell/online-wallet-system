@@ -51,13 +51,19 @@ INSTALLED_APPS = [
 ]
 
 
-# CORS: allow frontend (e.g. Vite on port 5173) to call the API
+# CORS: allow frontend (Vercel deployment) to call the API
 CORS_ALLOWED_ORIGINS = [
     'https://online-wallet-system-l343.vercel.app',
+    'https://online-wallet-system.vercel.app',  # Generic Vercel domain
+    'http://localhost:5173',  # Local development
+    'http://localhost:3000',  # Alternative local port
 ]
- 
+
 CSRF_TRUSTED_ORIGINS = [
     'https://online-wallet-system-l343.vercel.app',
+    'https://online-wallet-system.vercel.app',  # Generic Vercel domain
+    'http://localhost:5173',  # Local development
+    'http://localhost:3000',  # Alternative local port
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -99,11 +105,16 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 import dj_database_url
+import os
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://wallet_user:WalletUser123!@localhost:5432/wallet_system_db',
-        conn_max_age=600
+        default=os.environ.get(
+            'DATABASE_URL',
+            'postgresql://wallet_user:WalletUser123!@localhost:5432/wallet_system_db'
+        ),
+        conn_max_age=600,
+        ssl_require=not os.environ.get('DEBUG', '') == 'True'
     )
 }
 
