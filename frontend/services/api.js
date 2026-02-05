@@ -4,7 +4,8 @@
  * Uses credentials: 'include' so session cookie is sent for dashboard APIs.
  */
 export const API_BASE =
-  import.meta.env.VITE_API_URL || "http://127.0.0.1:8000/api";
+  import.meta.env.VITE_API_URL?.replace(/\/$/, '') + "/api";
+
 
 function getCsrfToken() {
   return localStorage.getItem("csrfToken") || "";
