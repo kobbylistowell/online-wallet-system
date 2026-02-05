@@ -1,0 +1,316 @@
+/* ================= RESET ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* ================= PAGE SPINNER (LOGIN) ================= */
+.page-spinner-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(51, 49, 56, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  gap: 16px;
+  pointer-events: none; /* don't block navigation or focus */
+}
+
+.page-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #63326E;
+  border-radius: 50%;
+  animation: page-spin 0.8s linear infinite;
+}
+
+.page-spinner-text {
+  color: #fff;
+  font-size: 15px;
+}
+
+@keyframes page-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ================= PAGE LAYOUT ================= */
+.login-page,
+.register-page {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* LEFT SIDE */
+.login-left,
+.register-left {
+  position: relative;
+  flex: 1;
+  background: linear-gradient(135deg, #63326E, #333138);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.slideshow-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* SLIDES */
+.slideshow-wrapper img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  z-index: 0;
+}
+
+.slideshow-wrapper img.active {
+  opacity: 0.15; /* slight overlay to see texts */
+}
+
+/* CONTENT OVER SLIDES */
+.slideshow-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  height: 100%;
+  animation: fadeIn 1s ease forwards;
+}
+
+/* FADE IN ANIMATION */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* LOGO */
+.slideshow-content .logo {
+  width: 100px;
+  margin-bottom: 20px;
+}
+
+/* SOCIAL ICONS */
+.social-icons {
+  margin-top: 25px;
+  display: flex;
+  gap: 20px;
+  opacity: 0;
+  animation: fadeInIcons 1s forwards 0.5s; /* fade in after 0.5s */
+}
+
+.social-icons svg {
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.social-icons svg:hover {
+  transform: scale(1.2);
+}
+
+@keyframes fadeInIcons {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ================= RIGHT SIDE ================= */
+.login-right,
+.register-right {
+  flex: 1;
+  background: #f5f6fa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* ================= AUTH CARD ================= */
+.auth-card {
+  background: white;
+  width: 100%;
+  max-width: 380px;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.no-shadow {
+  box-shadow: none;
+}
+
+.auth-card h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 24px;
+}
+
+.auth-error {
+  color: #c00;
+  font-size: 14px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+/* ================= INPUTS ================= */
+.auth-card label {
+  font-size: 14px;
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 10px;
+  margin: 6px 0 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.auth-card input:focus {
+  border-color: #63326E;
+}
+
+/* ================= BUTTON ================= */
+.login-btn,
+.auth-card button {
+  width: 100%;
+  padding: 12px;
+  background: #63326E;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background 0.3s ease;
+}
+
+.login-btn:hover,
+.auth-card button:hover {
+  background: #4d2655;
+}
+
+/* ================= FOOTER LINKS ================= */
+.auth-footer {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.auth-footer a {
+  color: #63326E;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.auth-footer a:hover {
+  text-decoration: underline;
+}
+
+/* ================= FADE-IN ANIMATION ================= */
+@keyframes fadeInContent {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+  .login-page,
+  .register-page {
+    flex-direction: column;
+  }
+
+  .login-left,
+  .register-left,
+  .login-right,
+  .register-right {
+    flex: none;
+    width: 100%;
+    min-height: 50vh;
+  }
+
+  .slideshow-content {
+    padding: 20px;
+  }
+
+  .slideshow-content h1 {
+    font-size: 22px;
+  }
+
+  .slideshow-content p {
+    font-size: 14px;
+  }
+
+  .slideshow-content .logo {
+    width: 80px;
+    margin-bottom: 15px;
+  }
+
+  .social-icons svg {
+    font-size: 16px;
+    gap: 10px;
+  }
+
+  .auth-card {
+    padding: 25px;
+  }
+
+  .auth-card h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+/* ================= VERY SMALL MOBILE ================= */
+@media (max-width: 480px) {
+  .slideshow-content h1 {
+    font-size: 18px;
+  }
+
+  .slideshow-content p {
+    font-size: 12px;
+  }
+
+  .slideshow-content .logo {
+    width: 70px;
+  }
+
+  .social-icons svg {
+    font-size: 14px;
+    gap: 8px;
+  }
+
+  .auth-card h2 {
+    font-size: 18px;
+  }
+}
