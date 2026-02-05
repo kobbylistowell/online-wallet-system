@@ -53,13 +53,15 @@ INSTALLED_APPS = [
 
 # CORS: allow frontend (e.g. Vite on port 5173) to call the API
 CORS_ALLOWED_ORIGINS = [
-    'https://online-wallet-system.vercel.app',
+    'http://localhost:5173',
+    'https://online-wallet-system-l343.vercel.app',
+]
+ 
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:5173',
+    'https://online-wallet-system-l343.vercel.app',
 ]
 
-# CSRF: allow same origins so login/dashboard POST from frontend succeed
-CSRF_TRUSTED_ORIGINS = [
-    'https://online-wallet-system.vercel.app',
-]
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware', 
@@ -91,6 +93,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'core.wsgi.application'
+
 
 
 # Database
